@@ -46,10 +46,6 @@ public class CustomerTest extends BaseTest{
 
         List<String> transactionsList = new WelcomePage(driver).getTransactionsList();
 
-        System.out.println(transactionsList.get(0));
-        System.out.println(transactionsList.size());
-        System.out.println(transactionsList);
-
         Assert.assertTrue(transactionsList.get(0).contains(TRANSACTION_TYPE_CREDIT));
         Assert.assertTrue(transactionsList.get(0).contains(TRANSACTION_TYPE_DEBIT));
 
