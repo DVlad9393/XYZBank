@@ -1,21 +1,21 @@
 package XYZBankTest.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage{
+
+    @FindBy(xpath = "//button[@ng-click='customer()']")
+    private WebElement customerLoginButton;
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
-    public CustomerLoginPage clickCustomerLoginButton(){
+    public CustomerLoginPage clickCustomerLoginButton() {
 
-        WebElement customerLoginButton = getWait10().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@ng-click='customer()']")));;
-        System.out.println(customerLoginButton.toString());
-        customerLoginButton.click();
+        getClickableElement(10,customerLoginButton).click();
         return new CustomerLoginPage(getDriver());
     }
 

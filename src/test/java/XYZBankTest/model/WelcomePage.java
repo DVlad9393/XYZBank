@@ -16,40 +16,41 @@ public class WelcomePage extends BasePage{
     }
 
     public String getNameOfClient(){
-        final WebElement nameOfClient = getWait10().until(ExpectedConditions.
+        final WebElement nameOfClient = getWait(10).until(ExpectedConditions.
                 visibilityOfElementLocated(By.xpath("//span[@class='fontBig ng-binding']")));
         return nameOfClient.getText();
+
 
     }
 
     public String getSuccessDepositText(){
-        final WebElement depositSuccessText = getWait10().until(ExpectedConditions.
+        final WebElement depositSuccessText = getWait(10).until(ExpectedConditions.
                 visibilityOfElementLocated(By.xpath("//span[text()='Deposit Successful']")));
         return depositSuccessText.getText();
     }
 
     public String getSuccessWithdrawnText(){
-        final WebElement withdrawnSuccessText = getWait10().until(ExpectedConditions.
+        final WebElement withdrawnSuccessText = getWait(10).until(ExpectedConditions.
                 visibilityOfElementLocated(By.xpath("//span[text()='Transaction successful']")));
         return withdrawnSuccessText.getText();
     }
 
     public String getBalance(){
-        final WebElement withdrawnSuccessText = getWait10().until(ExpectedConditions.
+        final WebElement withdrawnSuccessText = getWait(10).until(ExpectedConditions.
                 visibilityOfElementLocated(By.xpath("//div/strong[2]")));
         return withdrawnSuccessText.getText();
     }
 
     public WelcomePage addDepositSumAndSubmit(String sum){
-        final WebElement depositMainButton = getWait10().until(ExpectedConditions.elementToBeClickable
+        final WebElement depositMainButton = getWait(10).until(ExpectedConditions.elementToBeClickable
                 (By.xpath("//button[@ng-click='deposit()']")));
         depositMainButton.click();
 
-        final WebElement amountField = getWait10().until(ExpectedConditions.elementToBeClickable
+        final WebElement amountField = getWait(10).until(ExpectedConditions.elementToBeClickable
                 (By.xpath("//input[@placeholder='amount']")));
         amountField.sendKeys(sum);
 
-        final WebElement depositAddSumSubmitButton = getWait10().until(ExpectedConditions.elementToBeClickable(SubmitButton));
+        final WebElement depositAddSumSubmitButton = getWait(10).until(ExpectedConditions.elementToBeClickable(SubmitButton));
         depositAddSumSubmitButton.click();
         return new WelcomePage(getDriver());
 
@@ -58,11 +59,11 @@ public class WelcomePage extends BasePage{
     public WelcomePage addWithdrawnSumAndSubmit(String sum) {
 
 
-        final WebElement withdrawnMainButton = getWait10().until(ExpectedConditions.elementToBeClickable
+        final WebElement withdrawnMainButton = getWait(10).until(ExpectedConditions.elementToBeClickable
                 (By.xpath("//button[@ng-click='withdrawl()']")));
         withdrawnMainButton.click();
 
-        WebElement amountField = getWait10().until(ExpectedConditions.elementToBeClickable
+        WebElement amountField = getWait(10).until(ExpectedConditions.elementToBeClickable
                 (By.xpath("//input[@class='form-control ng-dirty ng-touched ng-invalid ng-invalid-required']")));
 
         Actions actions = new Actions(getDriver());
@@ -72,18 +73,18 @@ public class WelcomePage extends BasePage{
                 actions.sendKeys(Keys.ARROW_UP).perform();
             }
 
-        final WebElement withdrawnAddSumSubmitButton = getWait10().until(ExpectedConditions.elementToBeClickable
+        final WebElement withdrawnAddSumSubmitButton = getWait(10).until(ExpectedConditions.elementToBeClickable
                 (By.xpath("//button[text()='Withdraw']")));
         withdrawnAddSumSubmitButton.click();
         return new WelcomePage(getDriver());
     }
 
     public List<String> getTransactionsList(){
-        final WebElement transactionsMainButton = getWait10().until(ExpectedConditions.elementToBeClickable
+        final WebElement transactionsMainButton = getWait(10).until(ExpectedConditions.elementToBeClickable
                 (By.xpath("//button[@ng-click='transactions()']")));
         transactionsMainButton.click();
 
-        final List<WebElement> tableOfTransactions = Collections.singletonList(getWait10().until(ExpectedConditions.
+        final List<WebElement> tableOfTransactions = Collections.singletonList(getWait(10).until(ExpectedConditions.
                 visibilityOfElementLocated(By.xpath("//table[@class='table table-bordered table-striped']"))));
 
         return tableOfTransactions.stream()
