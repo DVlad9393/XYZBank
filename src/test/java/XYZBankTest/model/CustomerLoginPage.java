@@ -1,9 +1,8 @@
 package XYZBankTest.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 public class CustomerLoginPage extends HomePage{
@@ -12,12 +11,16 @@ public class CustomerLoginPage extends HomePage{
         super(driver);
     }
 
+    @FindBy(xpath = "//select[@name='userSelect']")
+    private WebElement DropDownListOfCustomer;
+
+    @FindBy(xpath = "//button[@class='btn btn-default']")
+    private WebElement loginButton;
+
     public WelcomePage selectCustomerHarryPotterAndClickLogin(){
-        final WebElement selectDropDownListofCustomer = getWait10().until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@name='userSelect']")));
-        Select selectHarry = new Select(selectDropDownListofCustomer);
+        Select selectHarry = new Select(getClickableElement(10,DropDownListOfCustomer));
         selectHarry.selectByVisibleText("Harry Potter");
-        final WebElement loginButton = getWait10().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='btn btn-default']")));
-        loginButton.click();
+        getClickableElement(10,loginButton).click();
         return new WelcomePage(getDriver());
     }
 

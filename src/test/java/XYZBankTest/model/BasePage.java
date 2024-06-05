@@ -2,16 +2,38 @@ package XYZBankTest.model;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class BasePage extends BaseModel{
+import java.time.Duration;
+
+public class BasePage {
+
+    private final WebDriver driver;
+
+    private WebDriverWait wait;
+
     public BasePage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
+        PageFactory.initElements(driver,this);
     }
 
-    By mainButton = By.xpath("//button[@class='btn home']");
-
-    public BasePage clickmainButton(){
-        getDriver().findElement(mainButton).click();
-        return new HomePage(getDriver());
+    protected WebDriver getDriver(){
+        return driver;
     }
+
+    protected WebDriverWait getWait(long sec) {
+        if (wait == null) {
+            wait = new WebDriverWait(getDriver(), Duration.ofSeconds(sec));
+        }
+        return wait;
+    }
+
+    protected WebElement getClickableElement (long sec, WebElement element){
+        return getWait(sec).until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+
 }
