@@ -1,5 +1,6 @@
 package XYZBankTest.model;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,6 +18,7 @@ public class CustomerLoginPage extends HomePage{
     @FindBy(xpath = "//button[@class='btn btn-default']")
     private WebElement loginButton;
 
+    @Step("Выбрать клиента HarryPotter и нажать кнопнку Login")
     public WelcomePage selectCustomerHarryPotterAndClickLogin(){
         Select selectHarry = new Select(getClickableElement(10,DropDownListOfCustomer));
         selectHarry.selectByVisibleText("Harry Potter");

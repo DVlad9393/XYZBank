@@ -1,11 +1,15 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="MyTestSuite">
     <listeners>
-        <listener class-name="XYZBankTest.runner.BaseTest" />
+        <listener class-name="XYZBankTest.runner.BaseTest"/>
     </listeners>
     <test name="MyTest">
         <classes>
-            <class name="XYZBankTest.runner.CustomerTest"/>
+            <class name="XYZBankTest.test.CustomerTest">
+                <methods>
+                    <include name="testMainSmokeClientHarryPotter"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
