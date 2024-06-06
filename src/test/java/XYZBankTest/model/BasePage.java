@@ -1,6 +1,5 @@
 package XYZBankTest.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -35,5 +34,8 @@ public class BasePage {
         return getWait(sec).until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    protected WebElement getVisibleElement (long sec, WebElement element){
+        return getWait(sec).until(ExpectedConditions.visibilityOf(element));
+    }
 
 }

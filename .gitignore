@@ -36,3 +36,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### project ###
+local.properties
+/.allure/
+/log/
+/.allure-report/
+/.allure-result/
