@@ -1,8 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="MyTestSuite">
-    <listeners>
-        <listener class-name="XYZBankTest.runner.BaseTest"/>
-    </listeners>
     <test name="MyTest">
         <classes>
             <class name="XYZBankTest.test.CustomerTest">
