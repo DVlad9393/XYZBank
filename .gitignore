@@ -41,5 +41,6 @@ build/
 local.properties
 /.allure/
 /log/
-/.allure-report/
-/.allure-result/
+/allure-report/
+/allure-result/
+/errorScreenshots/

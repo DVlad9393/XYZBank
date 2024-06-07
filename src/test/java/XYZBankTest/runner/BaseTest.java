@@ -6,39 +6,42 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Duration;
+import java.nio.file.Files;
 
-
-public abstract class BaseTest extends TestListenerAdapter {
+public abstract class BaseTest {
 
     protected WebDriver driver;
-
-    private Logger log = LoggerFactory.getLogger(BaseTest.class);
-
-    private WebDriverWait wait;
 
     public BaseTest() {
     }
 
-    public WebDriver getDriver() {
-        return driver;
-    }
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() throws MalformedURLException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-fullscreen");
         driver = new RemoteWebDriver(new URL("http://localhost:4444"), options);
         driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+    }
+
+    @AfterMethod
+    public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
+        if (testResult.getStatus() == ITestResult.FAILURE) {
+            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            byte[] fileContent = Files.readAllBytes(scrFile.toPath());
+            saveScreenshotPNG(fileContent);
+        }
+    }
+
+    @Attachment(value = "Page screenshot", type = "image/png")
+    public byte[] saveScreenshotPNG(byte[] screenshot) {
+        return screenshot;
     }
 
     @AfterClass
@@ -47,35 +50,5 @@ public abstract class BaseTest extends TestListenerAdapter {
             driver.quit();
         }
     }
-    protected WebDriverWait getWait(long sec) {
-        if (wait == null) {
-            wait = new WebDriverWait(getDriver(), Duration.ofSeconds(sec));
-        }
-        return wait;
-    }
 
-    @Override
-    public void onTestStart(ITestResult result) {
-        log.info("Test class started: " + result.getTestClass().getName());
-        log.info("Test started: " + result.getName());
-    }
-
-    @Override
-    public void onTestSuccess(ITestResult result) {
-        log.info("Test SUCCESS: " + result.getName());
-    }
-
-    @Override
-    public void onTestFailure(ITestResult result) {
-        makeScreenshot();
-        log.error("Test FAILED: " + result.getName());
-        if (result.getThrowable()!=null) {
-            result.getThrowable().printStackTrace();
-        }
-    }
-
-    @Attachment(value = "Page screenshot", type = "image/png")
-    private byte[] makeScreenshot() {
-        return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
-    }
 }
